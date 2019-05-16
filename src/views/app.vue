@@ -1,6 +1,6 @@
 <template>
   <div style="flex:1">
-    <news></news>
+    <newsList></newsList>
   </div>
 </template>
 
@@ -8,13 +8,13 @@
 <style lang="scss" src="bui-weex/src/css/buiweex.scss"></style>
 
 <script>
-  import news from "./news.vue";
+  import newsList from "./newsList.vue";
   module.exports = {
     data() {
       return {}
     },
     components: {
-      news
+      newsList
     }
   }
 </script>
