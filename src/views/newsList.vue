@@ -8,8 +8,8 @@
             <div class="new-list-content">
                 <div v-for="(item,index) in newsList" :key='index' @click='newsListItemEvent(item.action)'>
                     <div class="flex-dr content-item" v-if='item.image!=""'>
-                        <div class='content-item-left'>
-                            <bui-image placeholder='/image/logo.png' :src="item.image" radius='10' width="200px" height="146px"></bui-image>
+                        <div  class='content-item-left'>
+                            <bui-image @click='newsListItemEvent(item.action)' placeholder='/image/logo.png' :src="item.image" radius='10' width="200px" height="146px"></bui-image>
                         </div>
                         <div class='content-item-right flex-sb'>
                             <text class="item-right-text lines2 f28 c0 fw4">{{item.title}}</text>
@@ -139,14 +139,16 @@
             },
             broadcastWidgetHeight() {
                 let _params = this.$getPageParams();
-                setTimeout(() => {
-                    dom.getComponentRect(this.$refs.wrap, ret => {
-                        this.channel.postMessage({
-                            widgetHeight: ret.size.height,
-                            id: _params.id
+                for (let index = 1; index < 22; index = index + 10) {
+                    setTimeout(() => {
+                        dom.getComponentRect(this.$refs.wrap, (ret) => {
+                            this.channel.postMessage({
+                                widgetHeight: ret.size.height,
+                                id: _params.id
+                            });
                         });
-                    });
-                }, 100);
+                    }, 100 * index)
+                }
             }
         },
         created() {
