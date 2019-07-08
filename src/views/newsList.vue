@@ -169,7 +169,6 @@
 <style>
     .main {
         flex: 1;
-        background-color: #666;
     }
     .news-list {
         background-color: #fff;
