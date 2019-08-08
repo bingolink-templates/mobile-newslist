@@ -7,9 +7,9 @@
             </div>
             <div class="new-list-content">
                 <div v-for="(item,index) in newsList" :key='index' @click='newsListItemEvent(item.action)'>
-                    <div class="flex-dr content-item" v-if='item.image!=""'>
+                    <div class="flex-dr content-item" v-if='item.image !=""'>
                         <div  class='content-item-left'>
-                            <bui-image @click='newsListItemEvent(item.action)' placeholder='/image/logo.png' :src="item.image" radius='10' width="200px" height="146px"></bui-image>
+                            <bui-image @click='newsListItemEvent(item.action)' placeholder='/image/ellipsis.png' :src="item.image" radius='10' width="200px" height="146px"></bui-image>
                         </div>
                         <div class='content-item-right flex-sb'>
                             <text class="item-right-text lines2 f28 c0 fw4">{{item.title}}</text>
@@ -20,9 +20,9 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if='item.image==""' class="flex-sb flex-dr flex-ac content-no-image">
-                        <text class="f28 fw5 c0 lines1 w547">{{item.title}}</text>
-                        <text class="f24 c9">{{item.time}}</text>
+                    <div v-if='item.image ==""' class="flex-sb flex-dr flex-ac content-no-image">
+                        <text class="f28 fw5 c0 lines1 flex10">{{item.title}}</text>
+                        <text class="f24 c9 flex2 tr">{{item.time}}</text>
                     </div>
                 </div>
             </div>
@@ -150,6 +150,7 @@
             }
         },
         created() {
+            this.$fixViewport();
             linkapi.getLanguage(res => {
                 this.i18n = this.$window[res];
             });
@@ -183,14 +184,20 @@
         margin: 26px 23px 26px 24px;
     }
 
+    .content-item-left {
+        width: 200px;
+    }
+
     .content-item-right {
         margin-left: 20px;
-        width: 440px;
+        /* width: 440px; */
+        flex: 1;
         flex-direction: column;
     }
 
     .item-right-text {
-        width: 440px;
+        /* width: 440px; */
+        flex: 1;
         color: rgb(165, 164, 164);
     }
 
@@ -200,11 +207,6 @@
 
     .date-origin {
         width: 200px;
-    }
-
-    .date-time {
-        width: 100px;
-        margin-right: 10px;
     }
 
     .content-no-image {
