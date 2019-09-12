@@ -9,7 +9,7 @@
                 <div v-for="(item,index) in newsList" :key='index' @click='newsListItemEvent(item.action)'>
                     <div class="flex-dr content-item" v-if='item.image !=""'>
                         <div  class='content-item-left'>
-                            <bui-image @click='newsListItemEvent(item.action)' placeholder='/image/ellipsis.png' :src="item.image" radius='10' width="200px" height="146px"></bui-image>
+                            <bui-image @click='newsListItemEvent(item.action)' placeholder='/image/ellipsis.png' :src="item.image" radius='10' width="100wx" height="73wx"></bui-image>
                         </div>
                         <div class='content-item-right flex-sb'>
                             <text class="item-right-text lines2 f28 c0 fw4">{{item.title}}</text>
@@ -176,12 +176,12 @@
     }
 
     .news-list-title {
-        height: 40px;
-        margin: 18px 23px 10px 25px;
+        height: 20wx;
+        margin: 9wx 11wx 5wx 12wx;
     }
 
     .content-item {
-        margin: 26px 23px 26px 24px;
+        margin: 13wx 11wx 13wx 12wx;
     }
 
     .content-item-left {
@@ -189,20 +189,18 @@
     }
 
     .content-item-right {
-        margin-left: 20px;
-        /* width: 440px; */
+        margin-left: 10wx;
         flex: 1;
         flex-direction: column;
     }
 
     .item-right-text {
-        /* width: 440px; */
         flex: 1;
         color: rgb(165, 164, 164);
     }
 
     .item-right-date {
-        padding-top: 20px;
+        padding-top: 10wx;
     }
 
     .date-origin {
@@ -210,7 +208,7 @@
     }
 
     .content-no-image {
-        height: 79px;
-        margin: 18px 23px 10px 25px;
+        height: 40wx;
+        margin: 9wx 11wx 5wx 12wx;
     }
 </style>
