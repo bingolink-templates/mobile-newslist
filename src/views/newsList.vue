@@ -2,7 +2,7 @@
     <div ref="wrap">
         <!-- 新闻列表 -->
         <div class="news-list">
-            <div class="news-list-title flex" v-bind:style="{'height': isIPad ? '44wx': '88px'}">
+            <div class="news-list-title flex" v-bind:style="{'height': $isIPad ? '44wx': '88px'}">
                 <div class="title flex">
                     <span class="line" v-bind:style="{'background-color': themeColor}"></span>
                     <text class="c0 f30">{{i18n.new}}</text>
@@ -11,26 +11,26 @@
             <div v-if='isShow'>
                 <div v-if='newsList.length != 0'>
                     <div v-for="(item,index) in newsList" :key='index' @click='newsListItemEvent(item.action)'>
-                        <div class="flex-dr" v-if='item.image !=""'  v-bind:style="{'margin': isIPad ? '13wx 11wx 13wx 12wx' : '26px 22px 26px 24px'}">
+                        <div class="flex-dr" v-if='item.image !=""'  v-bind:style="{'margin': $isIPad ? '13wx 11wx 13wx 12wx' : '26px 22px 26px 24px'}">
                             <div class='content-item-left'>
                                 <bui-image @click='newsListItemEvent(item.action)' placeholder='/image/ellipsis.png' :src="item.image" radius='10' width="100wx" height="73wx"></bui-image>
                             </div>
                             <div class='content-item-right flex-sb'>
                                 <text class="item-right-text lines2 f28 c0 fw4">{{item.title}}</text>
-                                <div class="flex"  v-bind:style="{'padding-top': isIPad ? '10wx' : '20px'}">
+                                <div class="flex"  v-bind:style="{'padding-top': $isIPad ? '10wx' : '20px'}">
                                     <div class="date-origin flex">
                                         <text class="f24 c9">{{item.time}}</text>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div v-if='item.image ==""' class="flex-sb flex-dr flex-ac" v-bind:style="{'height': isIPad ? '40wx' : '80px', 'margin': isIPad ? '9wx 11wx 5wx 12wx' : '18px 22px 10px 24px'}">
+                        <div v-if='item.image ==""' class="flex-sb flex-dr flex-ac" v-bind:style="{'height': $isIPad ? '40wx' : '80px', 'margin': $isIPad ? '9wx 11wx 5wx 12wx' : '18px 22px 10px 24px'}">
                             <text class="f28 fw5 c0 lines1 flex10">{{item.title}}</text>
                             <text class="f24 c9 flex2 tr">{{item.time}}</text>
                         </div>
                     </div>
                 </div>
-                <div class="no-content flex-ac flex-jc" v-bind:style="{'height': isIPad ? '200wx': '400px'}" v-else>
+                <div class="no-content flex-ac flex-jc" v-bind:style="{'height': $isIPad ? '200wx': '400px'}" v-else>
                     <div class="flex-dr">
                         <bui-image src="/image/nodata.png" width="20wx" height="20wx"></bui-image>
                         <text class="f26 c51 fw4 pl15 center-height">{{isError?i18n.NoneData:i18n.ErrorLoadData}}</text>
@@ -55,7 +55,6 @@ export default {
             isShow: false,
             isError: true,
             themeColor: '',
-            isIPad: false
         };
     },
     methods: {
@@ -216,7 +215,6 @@ export default {
         linkapi.getThemeColor(res => {
             this.themeColor = res.background_color;
         })
-        this.isIPad = this.$isIPad()
     },
     mounted() {
         var that = this
