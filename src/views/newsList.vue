@@ -1,5 +1,5 @@
 <template>
-    <div ref="wrap" class="main">
+    <div ref="wrap">
         <!-- 新闻列表 -->
         <div class="news-list">
             <div class="news-list-title flex">
@@ -225,16 +225,14 @@ export default {
 
 <style lang="css" src="../css/common.css"></style>
 <style>
-.main {
-    flex: 1;
-}
 .news-list {
     background-color: #fff;
 }
 
 .news-list-title {
-    height: 20wx;
-    margin: 9wx 11wx 5wx 12wx;
+    height: 44wx;
+    padding: 0 12wx;
+    border-bottom: 1px solid #f2f2f2;
 }
 
 .content-item {
