@@ -11,9 +11,9 @@
             <div v-if='isShow'>
                 <div v-if='newsList.length != 0'>
                     <div v-for="(item,index) in newsList" :key='index' @click='newsListItemEvent(item.action)'>
-                        <div class="flex-dr" v-if='item.image !=""'  v-bind:style="{'margin': $isIPad ? '13wx 11wx 13wx 12wx' : '26px 22px 26px 24px'}">
+                        <div class="flex-dr" v-if='item.image !=""' :class="[ $isIPad ? 'marWx' : 'marPx']">
                             <div class='content-item-left'>
-                                <bui-image @click='newsListItemEvent(item.action)' placeholder='/image/ellipsis.png' :src="item.image" radius='10' width="100wx" height="73wx"></bui-image>
+                                <bui-image @click='newsListItemEvent(item.action)' placeholder='/image/ellipsis.png' :src="item.image" radius='10' width="200px" height="73wx"></bui-image>
                             </div>
                             <div class='content-item-right flex-sb'>
                                 <text class="item-right-text lines2 f28 c0 fw4">{{item.title}}</text>
@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if='item.image ==""' class="flex-sb flex-dr flex-ac" v-bind:style="{'height': $isIPad ? '40wx' : '80px', 'margin': $isIPad ? '9wx 11wx 5wx 12wx' : '18px 22px 10px 24px'}">
+                        <div v-if='item.image ==""' class="flex-sb flex-dr flex-ac" v-bind:style="{'height': $isIPad ? '40wx' : '80px'}" :class="[ $isIPad ? 'nmarWx' : 'nmarPx']">
                             <text class="f28 fw5 c0 lines1 flex10">{{item.title}}</text>
                             <text class="f24 c9 flex2 tr">{{item.time}}</text>
                         </div>
@@ -46,6 +46,7 @@ const link = weex.requireModule("LinkModule");
 const linkapi = require("linkapi");
 const dom = weex.requireModule("dom");
 const storage = weex.requireModule('storage');
+var uamFileIdUiDownload = '/ui/download?fileId=${id}&access=anonymous';
 export default {
     data() {
         return {
@@ -165,7 +166,7 @@ export default {
                                 newsItemObj["action"] = action
                                 newsItemObj["title"] = element.title;
                                 newsItemObj["time"] = this.timestampToTime(element.publishTime);
-                                newsItemObj["image"] = element.image;
+                                newsItemObj["image"] = this.parseImgUrl(element.image, params.uamUri || params.uamUrl);
                                 newsArr.push(newsItemObj);
                             }
                             this.newsList = newsArr;
@@ -182,6 +183,17 @@ export default {
             }, err => {
                 this.error();
             });
+        },
+        parseImgUrl(url, uam) {
+            if (!url) return url;
+            if (url.match(/^https?:\/\//g)) {
+                return url
+            }
+            if (url.startsWith("store://")) {
+                url = url.replace("store://", "");
+            }
+            url = (uam + uamFileIdUiDownload).replace('${id}', url);
+            return url;
         },
         error() {
             this.isError = false
@@ -215,6 +227,7 @@ export default {
         linkapi.getThemeColor(res => {
             this.themeColor = res.background_color;
         })
+        this.$isIPad = this.$isIPad()
     },
     mounted() {
         var that = this
@@ -223,9 +236,9 @@ export default {
                 this.getNewsData();
             }
         };
-        this.getStorage(function () {
+        // this.getStorage(function () {
+        // })
             that.getNewsData()
-        })
     }
 };
 </script>
@@ -268,5 +281,18 @@ export default {
 
 .no-content {
     flex: 1;
+}
+
+.marWx {
+    margin: 6wx 5wx 6wx 5wx;
+}
+.marPx {
+    margin: 12px 10px 12px 10px;
+}
+.nmarWx {
+    margin: 9wx 11wx 5wx 12wx;
+}
+.nmarPx{
+    margin: 18px 22px 10px 24px;
 }
 </style>
