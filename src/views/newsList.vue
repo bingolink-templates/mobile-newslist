@@ -236,9 +236,9 @@ export default {
                 this.getNewsData();
             }
         };
-        // this.getStorage(function () {
-        // })
+        this.getStorage(function () {
             that.getNewsData()
+        })
     }
 };
 </script>
