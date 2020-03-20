@@ -43,6 +43,7 @@ const link = weex.requireModule("LinkModule");
 const linkapi = require("linkapi");
 const dom = weex.requireModule("dom");
 const storage = weex.requireModule('storage');
+var uamFileIdUiDownload = '/ui/download?fileId=${id}&access=anonymous';
 export default {
     data() {
         return {
@@ -161,7 +162,7 @@ export default {
                                 newsItemObj["action"] = action
                                 newsItemObj["title"] = element.title;
                                 newsItemObj["time"] = this.timestampToTime(element.publishTime);
-                                newsItemObj["image"] = element.image;
+                                newsItemObj["image"] = this.parseImgUrl(element.image, params.uamUri || params.uamUrl);
                                 newsArr.push(newsItemObj);
                             }
                             this.newsList = newsArr;
@@ -178,6 +179,17 @@ export default {
             }, err => {
                 this.error();
             });
+        },
+        parseImgUrl(url, uam) {
+            if (!url) return url;
+            if (url.match(/^https?:\/\//g)) {
+                return url
+            }
+            if (url.startsWith("store://")) {
+                url = url.replace("store://", "");
+            }
+            url = (uam + uamFileIdUiDownload).replace('${id}', url);
+            return url;
         },
         error() {
             this.isError = false
